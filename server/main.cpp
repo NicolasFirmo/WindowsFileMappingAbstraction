@@ -1,15 +1,19 @@
 #include "SharedMemory.hpp"
 
-int main(){
+int main() {
 	SharedMemory messageBuffer{"message_buffer"};
-	SharedMemory messageBuffer2{"message_buffer"};
-	SharedMemory messageBuffer3{"message_buffer2"};
 
-	auto view = messageBuffer.getMemoryView<char>(16, 16);
+	const auto address = std::random_device{}() % 4096;
+	auto addressView   = messageBuffer.getMemoryView<std::random_device::result_type>(0, 1);
+	addressView.write(&address);
 
-	char message[16];
-	view.write("Dale carai");
-	view.read(message);
+	const auto value = std::random_device{}();
+	auto valueView	 = messageBuffer.getMemoryView<std::random_device::result_type>(address, 1);
+	valueView.write(&value);
 
-	std::cout << "message: " << message << '\n';
+	std::cout << "Server wrote the value " << value << " on address " << address << '\n';
+
+	std::cin.ignore();
+
+	std::cout << "Server closed!\n";
 }
