@@ -4,6 +4,7 @@ SharedMemory::SharedMemory(const char* name) {
 	SYSTEM_INFO systemInfo;
 	GetSystemInfo(&systemInfo);
 
+	// creates or opens existent file mapping
 	mapFileHandle_ = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0,
 									   systemInfo.dwAllocationGranularity, TEXT(name));
 
@@ -18,9 +19,4 @@ SharedMemory::SharedMemory(const char* name) {
 SharedMemory::~SharedMemory() {
 	UnmapViewOfFile(buffer_);
 	CloseHandle(mapFileHandle_);
-}
-
-// TODO(Nicolas)
-size_t SharedMemory::getRefCount() const {
-	return size_t();
 }

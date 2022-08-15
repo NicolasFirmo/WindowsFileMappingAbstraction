@@ -27,8 +27,6 @@ public:
 	SharedMemory& operator=(const SharedMemory&) = delete;
 	SharedMemory& operator=(SharedMemory&&)		 = delete;
 
-	size_t getRefCount() const;
-
 	template <typename T>
 	View<T> getMemoryView(size_t address, size_t count);
 
