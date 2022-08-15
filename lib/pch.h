@@ -27,6 +27,8 @@
 #include <sys/types.h>
 #include <type_traits>
 
+#include <cassert>
+
 // Slim Windows
 
 // target Windows 8 or later
